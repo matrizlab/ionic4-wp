@@ -1,0 +1,53 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Players</ion-title>
+    <ion-buttons slot="end" *ngIf="(authService.isAuthenticated | async)">
+        <ion-button routerLink="/tabs/players/player-edit">
+          <ion-icon slot="start" name="add"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+ <ion-grid>
+   <ion-row>
+      <ion-col size="12">
+          <ion-list *ngIf="players.length > 0">
+            <ion-item
+              detail
+              *ngFor="let player of players"
+              routerLink="/tabs/players/{{ player.id }}"
+            >
+              <ion-label text-wrap>
+                <ion-item lines="none">
+                  <h2 [innerHTML]="player.title.rendered"></h2>
+                </ion-item>
+                <ion-item lines="none">
+                  <p [innerHTML]="player.content.rendered"></p>
+                </ion-item>
+              </ion-label>
+            </ion-item>
+          </ion-list>
+  
+          <ion-list *ngIf="players.length === 0">
+            <ion-item *ngFor="let player of [].constructor(10)">
+              <ion-label text-wrap>
+                <ion-text>
+                  <ion-skeleton-text animate width="90%"></ion-skeleton-text>
+                  <ion-skeleton-text animate width="60%"></ion-skeleton-text>
+                </ion-text>
+                <ion-text>
+                  <ion-skeleton-text animate width="30%"></ion-skeleton-text>
+                </ion-text>
+              </ion-label>
+            </ion-item>
+          </ion-list>
+        </ion-col>
+   </ion-row>
+ </ion-grid>
+
+
+
+
+</ion-content>
